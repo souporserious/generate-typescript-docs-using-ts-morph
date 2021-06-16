@@ -2,7 +2,7 @@ type ExampleProps = {
   /** The title of the example. */
   title?: string
 
-  /* The color of the text. */
+  /** The color of the text. */
   color?: string
 
   /** The horizontal alignment of the text. */

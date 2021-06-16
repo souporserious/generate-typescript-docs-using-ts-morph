@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { Project, ts } from 'ts-morph'
+import { Project } from 'ts-morph'
 
 export default function App(props) {
   return (
@@ -29,14 +29,12 @@ export function getStaticProps() {
     const [props] = declaration.getParameters()
     const type = props.getType()
     const types = type.getProperties().map((prop) => {
-      const [range] = ts.getLeadingCommentRanges(
-        source.getFullText(),
-        prop.getValueDeclaration().getFullStart()
-      )
+      const [node] = prop.getDeclarations()
+      const [range] = node.getLeadingCommentRanges()
       return {
         name: prop.getName(),
         type: prop.getTypeAtLocation(declaration).getText(),
-        comment: source.getFullText().slice(range.pos, range.end),
+        comment: range.getText(),
       }
     })
     return {
